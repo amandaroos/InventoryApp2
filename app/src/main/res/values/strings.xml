@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">InventoryApp2</string>
+
+    <!--Empty view text-->
+    <string name="empty_view_text">No inventory available</string>
+
+    <!--Button labels-->
+    <string name="button_label_decrease_inventory">Sale</string>
+    <string name="button_label_increase_inventrory">Add Inventory</string>
+    <string name="button_label_delete_product">Delete Product</string>
+
+    <!--Detail Activity labels-->
+    <string name="detail_activity_label_product_name">Name:</string>
+    <string name="detail_activity_label_product_price">Price:</string>
+    <string name="detail_activity_label_product_quantity">Quantity:</string>
+    <string name="detail_activity_label_supplier_name">Supplier Name:</string>
+    <string name="detail_activity_label_supplier_phone_number">Supplier Phone Number:</string>
+
+</resources>
