@@ -5,8 +5,8 @@
     <string name="empty_view_text">No inventory available</string>
 
     <!--Button labels-->
-    <string name="button_label_decrease_inventory">Sale</string>
-    <string name="button_label_increase_inventrory">Add Inventory</string>
+    <string name="button_label_decrease_inventory">-</string>
+    <string name="button_label_increase_inventrory">+</string>
     <string name="button_label_delete_product">Delete Product</string>
 
     <!--Detail Activity labels-->

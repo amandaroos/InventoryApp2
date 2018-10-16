@@ -32,7 +32,7 @@ public class InventoryProvider extends ContentProvider {
         //should recognize. All paths added to the UriMatcher have a corresponding code to return
         //when a match is found.
         sUriMatcher.addURI(InventoryContract.CONTENT_AUTHORITY, InventoryContract.PATH_PRODUCTS, PRODUCTS);
-        sUriMatcher.addURI(InventoryContract.CONTENT_AUTHORITY,InventoryContract.PATH_PRODUCTS,PRODUCT_ID);
+        sUriMatcher.addURI(InventoryContract.CONTENT_AUTHORITY,InventoryContract.PATH_PRODUCTS + "/#",PRODUCT_ID);
     }
 
     public InventoryDbHelper mDbHelper;
@@ -137,7 +137,7 @@ public class InventoryProvider extends ContentProvider {
 
         //If the id is -1, then the insertion failed. Log an error and return null.
         if (id == -1) {
-            Log.e(LOG_TAG, "Failed to indert row for " + uri);
+            Log.e(LOG_TAG, "Failed to insert row for " + uri);
             return null;
         }
 

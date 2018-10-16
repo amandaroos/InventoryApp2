@@ -62,7 +62,10 @@
             android:id="@+id/edit_text_product_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@+id/button_decrease_inventory"
             app:layout_constraintTop_toBottomOf="@+id/text_view_product_quantity_label"
             tools:text="100" />
 
@@ -108,26 +111,33 @@
         <Button
             android:id="@+id/button_decrease_inventory"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:text="@string/button_label_decrease_inventory"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_text_product_supplier_phone_number" />
+            app:layout_constraintBottom_toBottomOf="@+id/edit_text_product_quantity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/edit_text_product_quantity" />
 
         <Button
             android:id="@+id/button_increase_inventory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:text="@string/button_label_increase_inventrory"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_decrease_inventory" />
+            app:layout_constraintBottom_toBottomOf="@+id/edit_text_product_quantity"
+            app:layout_constraintStart_toEndOf="@+id/edit_text_product_quantity"
+            app:layout_constraintTop_toTopOf="@+id/edit_text_product_quantity" />
 
         <Button
             android:id="@+id/button_delete_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="@string/button_label_delete_product"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_increase_inventory" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_product_supplier_phone_number" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
