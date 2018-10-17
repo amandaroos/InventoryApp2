@@ -125,7 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:text="@string/button_label_increase_inventrory"
+            android:text="@string/button_label_increase_inventory"
             app:layout_constraintBottom_toBottomOf="@+id/edit_text_product_quantity"
             app:layout_constraintStart_toEndOf="@+id/edit_text_product_quantity"
             app:layout_constraintTop_toTopOf="@+id/edit_text_product_quantity" />

@@ -53,7 +53,7 @@ public class InventoryCursorAdapter extends CursorAdapter {
         int productPriceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_PRICE);
         int productQuantityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_QUANTITY);
 
-        //Read the product attributes from teh Cursor for the current product
+        //Read the product attributes from the Cursor for the current product
         String productName = cursor.getString(productNameColumnIndex);
         String productPrice = cursor.getString(productPriceColumnIndex);
         String productQuantity = cursor.getString(productQuantityColumnIndex);

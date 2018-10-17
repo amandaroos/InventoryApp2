@@ -39,7 +39,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         //Find ListView which will be populated with the product data
         ListView productListView = (ListView) findViewById(R.id.list);
 
-        //TODO find and set empty view on the ListView so it only shows when the list 0 items
+        //Find and set empty view on the ListView so it only shows when the list 0 items
+        View emptyView = findViewById(R.id.empty_view);
+        productListView.setEmptyView(emptyView);
 
         //There is no product data yet (until the loader finishes), so pass in null for the Cursor
         mCursorAdapter = new InventoryCursorAdapter(this, null);

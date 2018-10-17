@@ -2,18 +2,46 @@
     <string name="app_name">InventoryApp2</string>
 
     <!--Empty view text-->
-    <string name="empty_view_text">No inventory available</string>
+    <string name="empty_view_header_text">No inventory available</string>
+    <string name="empty_view_text">Click the add button to create a product. \nProduct name is required.</string>
 
     <!--Button labels-->
     <string name="button_label_decrease_inventory">-</string>
-    <string name="button_label_increase_inventrory">+</string>
+    <string name="button_label_increase_inventory">+</string>
     <string name="button_label_delete_product">Delete Product</string>
 
     <!--Detail Activity labels-->
+    <string name="detail_activity_label_add_product">Add Product</string>
+    <string name="detail_activity_label_edit_product">Edit Product</string>
+
+    <!--Detail Activity TextView labels-->
     <string name="detail_activity_label_product_name">Name:</string>
     <string name="detail_activity_label_product_price">Price:</string>
     <string name="detail_activity_label_product_quantity">Quantity:</string>
     <string name="detail_activity_label_supplier_name">Supplier Name:</string>
     <string name="detail_activity_label_supplier_phone_number">Supplier Phone Number:</string>
 
+    <!--Menu labels-->
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_delete_all_entries">Delete All Products</string>
+
+    <!--Dialog button text-->
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="keep_editing">Keep Editing</string>
+    <string name="discard">Discard</string>
+
+    <!--Dialog messages-->
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+    <string name="delete_dialog_msg">Delete this product?</string>
+
+    <!--Error messages-->
+    <string name="detail_activity_insert_product_successful">Product saved</string>
+    <string name="detail_activity_insert_product_failed">Error with saving product</string>
+    <string name="detail_activity_update_product_successful">Product updated</string>
+    <string name="detail_activity_update_product_failed">Error with updating product</string>
+    <string name="detail_activity_delete_product_successful">Product deleted</string>
+    <string name="detail_activity_delete_product_failed">Error with deleting product</string>
 </resources>
+
