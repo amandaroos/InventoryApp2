@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:layout_editor_absoluteY="81dp"
-    android:padding="8dp">
+    android:padding="8dp"
+    tools:layout_editor_absoluteY="81dp">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -33,9 +33,9 @@
         <!--Product Price-->
         <TextView
             android:id="@+id/text_view_product_price_label"
+            style="@style/DetailLabelsTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/DetailLabelsTheme"
             android:text="@string/detail_activity_label_product_price"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_text_product_name" />
@@ -45,15 +45,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
+            android:inputType="number"
             app:layout_constraintTop_toBottomOf="@+id/text_view_product_price_label"
             tools:text="$4.00 " />
 
         <!--Product Quantity-->
         <TextView
             android:id="@+id/text_view_product_quantity_label"
+            style="@style/DetailLabelsTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/DetailLabelsTheme"
             android:text="@string/detail_activity_label_product_quantity"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_text_product_price" />
@@ -65,6 +66,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
+            android:inputType="number"
             app:layout_constraintStart_toEndOf="@+id/button_decrease_inventory"
             app:layout_constraintTop_toBottomOf="@+id/text_view_product_quantity_label"
             tools:text="100" />
@@ -72,9 +74,9 @@
         <!--Supplier Name-->
         <TextView
             android:id="@+id/text_view_product_supplier_name_label"
+            style="@style/DetailLabelsTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/DetailLabelsTheme"
             android:text="@string/detail_activity_label_supplier_name"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_text_product_quantity" />
@@ -84,16 +86,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
+            android:inputType="textCapWords"
             app:layout_constraintTop_toBottomOf="@+id/text_view_product_supplier_name_label"
             tools:text="Supplier Name " />
 
         <!--Supplier Phone Number-->
         <TextView
             android:id="@+id/text_view_product_supplier_phone_number_label"
+            style="@style/DetailLabelsTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="8dp"
-            style="@style/DetailLabelsTheme"
             android:text="@string/detail_activity_label_supplier_phone_number"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_text_product_supplier_name" />
@@ -102,6 +105,7 @@
             android:id="@+id/edit_text_product_supplier_phone_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:inputType="phone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_product_supplier_phone_number_label"
             tools:text="201-123-4567" />

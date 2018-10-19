@@ -9,6 +9,7 @@
     <string name="button_label_decrease_inventory">-</string>
     <string name="button_label_increase_inventory">+</string>
     <string name="button_label_delete_product">Delete Product</string>
+    <string name="button_label_sale">Sale</string>
 
     <!--Detail Activity labels-->
     <string name="detail_activity_label_add_product">Add Product</string>
