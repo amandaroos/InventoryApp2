@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.example.android.inventoryapp2.data.InventoryContract;
 import com.example.android.inventoryapp2.data.InventoryContract.InventoryEntry;
 
+import java.text.NumberFormat;
+
 public class InventoryCursorAdapter extends CursorAdapter {
 
     /**
@@ -65,6 +67,10 @@ public class InventoryCursorAdapter extends CursorAdapter {
         String productPrice = cursor.getString(productPriceColumnIndex);
         final String productQuantity = cursor.getString(productQuantityColumnIndex);
 
+        //Format the price
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        productPrice = formatter.format(Double.parseDouble(productPrice)/100);
+
         //Update the TextViews with the attributes for the current product
         productNameTextView.setText(productName);
         productPriceTextView.setText(productPrice);
@@ -93,7 +99,6 @@ public class InventoryCursorAdapter extends CursorAdapter {
                 //Pass the Content Resolver the updated product quantity
                 int rowsAffected = context.getContentResolver()
                         .update(currentProductUri, values, null, null);
-
             }
         });
     }

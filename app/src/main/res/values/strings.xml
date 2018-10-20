@@ -15,6 +15,10 @@
     <string name="detail_activity_label_add_product">Add Product</string>
     <string name="detail_activity_label_edit_product">Edit Product</string>
 
+    <!--Money Formatting-->
+    <string name="zeroCurrecy">$0.00</string>
+    <string name="currency_symbol">$</string>
+
     <!--Detail Activity TextView labels-->
     <string name="detail_activity_label_product_name">Name:</string>
     <string name="detail_activity_label_product_price">Price:</string>
@@ -44,5 +48,7 @@
     <string name="detail_activity_update_product_failed">Error with updating product</string>
     <string name="detail_activity_delete_product_successful">Product deleted</string>
     <string name="detail_activity_delete_product_failed">Error with deleting product</string>
+    <string name="large_number_error_toast">Error: number is too large</string>
+
 </resources>
 

@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:padding="8dp"
     tools:layout_editor_absoluteY="81dp">
 
@@ -44,8 +46,8 @@
             android:id="@+id/edit_text_product_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
             android:inputType="number"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_product_price_label"
             tools:text="$4.00 " />
 
@@ -85,8 +87,8 @@
             android:id="@+id/edit_text_product_supplier_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
             android:inputType="textCapWords"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_product_supplier_name_label"
             tools:text="Supplier Name " />
 

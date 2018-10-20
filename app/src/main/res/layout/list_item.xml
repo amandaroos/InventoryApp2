@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
     android:padding="8dp">
 
     <LinearLayout
@@ -50,5 +51,4 @@
         android:layout_height="wrap_content"
         android:text="@string/button_label_sale"
         app:layout_constraintEnd_toEndOf="parent" />
-
 </android.support.constraint.ConstraintLayout>
