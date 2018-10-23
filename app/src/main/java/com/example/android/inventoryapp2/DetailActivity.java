@@ -55,7 +55,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
     private Button mIncreaseInventoryButton;
     private Button mDecreaseInventoryButton;
-    private Button mDeleteProduct;
+    private Button mCallSupplierButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,9 +83,9 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
         mIncreaseInventoryButton = (Button) findViewById(R.id.button_increase_inventory);
         mDecreaseInventoryButton = (Button) findViewById(R.id.button_decrease_inventory);
-        mDeleteProduct = (Button) findViewById(R.id.button_delete_product);
+        mCallSupplierButton = (Button) findViewById(R.id.button_call_supplier);
 
-        //Set OnTouchListeners
+        //Set OnTouchListeners on EditText fields
         mProductNameEditText.setOnTouchListener(mTouchListener);
         mProductPriceEditText.setOnTouchListener(mTouchListener);
         mProductQuantityEditText.setOnTouchListener(mTouchListener);
@@ -96,7 +96,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         mProductPriceEditText.addTextChangedListener(priceWatcher);
 
         //Set default values
-        mProductPriceEditText.setText(R.string.zeroCurrecy);
+        mProductPriceEditText.setText(R.string.zeroCurrency);
         mProductQuantityEditText.setText("0");
 
         //Set on click listeners
@@ -117,10 +117,10 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             }
         });
 
-        mDeleteProduct.setOnClickListener(new View.OnClickListener() {
+        mCallSupplierButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDeleteConfirmationDialog();
+                callSupplier();
             }
         });
     }
@@ -137,8 +137,19 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         switch (item.getItemId()) {
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
-                saveProduct();
-                finish();
+                if (isValidData() == 1) {
+                    //save the new product information entered by the user
+                    saveProduct();
+                    finish();
+                } else if (isValidData() == -1){
+                        //Exit the activity because the user did not enter any data
+                        finish();
+                }
+                //When isValidData() returns 0, do nothing. isValidData() displays a toast prompting
+                //the user to enter a product name
+                return true;
+            case R.id.action_delete:
+                showDeleteConfirmationDialog();
                 return true;
             // Respond to a click on the "Up" arrow button in the app bar
             case android.R.id.home:
@@ -211,7 +222,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
             //Format the price
             NumberFormat formatter = NumberFormat.getCurrencyInstance();
-            productPrice = formatter.format(Double.parseDouble(productPrice)/100);
+            productPrice = formatter.format(Double.parseDouble(productPrice) / 100);
 
             //Populate views with extracted data
             mProductNameEditText.setText(productName);
@@ -225,7 +236,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     private TextWatcher priceWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
         }
 
         @Override
@@ -239,22 +249,20 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
             try {
                 String totalStr = mProductPriceEditText.getText().toString();
-                totalStr = totalStr.replaceAll("[$.]", "");
+                totalStr = totalStr.replaceAll("[$.,]", "");
                 totalStr = getResources().getString(R.string.currency_symbol)
-                        + String.format(Locale.getDefault(), "%.2f", Double.parseDouble(totalStr)/100);
+                        + String.format(Locale.getDefault(), "%.2f", Double.parseDouble(totalStr) / 100);
                 mProductPriceEditText.setText(totalStr);
                 mProductPriceEditText.setSelection(mProductPriceEditText.getText().length());
-            }
-            catch (Exception e){
-                Toast.makeText(getBaseContext(), R.string.large_number_error_toast, Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                //TODO Toast.makeText(getBaseContext(), R.string.large_number_error_toast, Toast.LENGTH_LONG).show();
 
-                mProductPriceEditText.setText(R.string.zeroCurrecy);
+                mProductPriceEditText.setText(R.string.zeroCurrency);
             }
         }
 
         @Override
         public void afterTextChanged(Editable editable) {
-
         }
     };
 
@@ -280,7 +288,8 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //Use clicked the "Discard" button, close the current activity
-                        finish();;
+                        finish();
+                        ;
                     }
                 };
         //Show dialog that there are unsaved changes
@@ -312,7 +321,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     public void changeProductQuantity(boolean increase) {
 
         int productQuantityInteger = Integer.parseInt(mProductQuantityEditText.getText().toString());
-
         //if increase is true, increase quantity
         //otherwise, if it is greater than 0, decrease the quantity
         if (increase) {
@@ -322,7 +330,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                 productQuantityInteger -= 1;
             }
         }
-
         mProductQuantityEditText.setText(String.valueOf(productQuantityInteger));
     }
 
@@ -352,6 +359,42 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         alertDialog.show();
     }
 
+    /**
+     * @return int -1 if ok to finish activity without saving, 0 if product name is missing, and
+     * 1 if ok to save and finish activity
+     */
+    public int isValidData() {
+
+        String productNameString = mProductNameEditText.getText().toString().trim();
+        String productQuantityString = mProductQuantityEditText.getText().toString().trim();
+        String supplierNameString = mSupplierNameEditText.getText().toString().trim();
+        String supplierPhoneNumberString = mSupplierPhoneNumberEditText.getText().toString().trim();
+
+        //Clean up the price String
+        String productPriceString = mProductPriceEditText.getText().toString().trim()
+                .replaceAll("[$,.]", "");
+
+        //Check if this is supposed to be a new product and check if all the fields are blank
+        //or if the fields ar equal to their default values
+        if (mCurrentProductURi == null &&
+                TextUtils.isEmpty(productNameString) &&
+                productPriceString.equals("000") &&
+                productQuantityString.equals("0") &&
+                TextUtils.isEmpty(supplierNameString) &&
+                TextUtils.isEmpty(supplierPhoneNumberString)) {
+            //Since no fields were modified, we can return early without creating a new product.
+            return -1;
+        } else if (productNameString.isEmpty()) {
+            //Product name is required
+            Toast.makeText(getBaseContext(), R.string.detail_activity_product_name_required,
+                    Toast.LENGTH_SHORT).show();
+            return 0;
+        }
+
+        //Product is ok to save
+        return 1;
+    }
+
     //Get user input from detail activity and update the product in database
     private void saveProduct() {
         //Get product data from user input
@@ -360,21 +403,9 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         String supplierNameString = mSupplierNameEditText.getText().toString().trim();
         String supplierPhoneNumberString = mSupplierPhoneNumberEditText.getText().toString().trim();
 
-        //Clean up the price String before entering it into values
+        //Clean up the price String
         String productPriceString = mProductPriceEditText.getText().toString().trim()
-                .replaceAll("[$,.]","");
-
-        //Prevent crash when saving a blank detail page
-        //Check if this is supposed to be a new product and check if all the fields are blank
-        if (mCurrentProductURi == null &&
-                TextUtils.isEmpty(productNameString) &&
-                TextUtils.isEmpty(productPriceString) &&
-                TextUtils.isEmpty(productQuantityString) &&
-                TextUtils.isEmpty(supplierNameString) &&
-                TextUtils.isEmpty(supplierPhoneNumberString)) {
-            //Since no fields were modified, we can return early without creating a new product.
-            return;
-        }
+                .replaceAll("[$,.]", "");
 
         ContentValues values = new ContentValues();
         values.put(InventoryEntry.COLUMN_PRODUCT_NAME, productNameString);
@@ -387,11 +418,11 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             //pass the update product information to the content resolver
             int rowsAffected = getContentResolver().update(mCurrentProductURi, values, null, null);
 
-            //Show a toast message depending on whether or not hte update was successful
+            //Show a toast message depending on whether or not the update was successful
             if (rowsAffected == 0) {
                 Toast.makeText(this, R.string.detail_activity_update_product_failed,
                         Toast.LENGTH_SHORT).show();
-            } else {
+            } else if (mProductHasChanged){
                 Toast.makeText(this, R.string.detail_activity_update_product_successful,
                         Toast.LENGTH_SHORT).show();
             }
@@ -411,18 +442,24 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
     public void deleteProduct() {
         //Only preform the delete if this is an existing product
-        if (mCurrentProductURi != null){
+        if (mCurrentProductURi != null) {
             int rowsDeleted = getContentResolver().delete(mCurrentProductURi, null, null);
 
             if (rowsDeleted == 0) {
                 Toast.makeText(this, R.string.detail_activity_delete_product_failed,
-                        Toast.LENGTH_SHORT).show();;
+                        Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, R.string.detail_activity_delete_product_successful,
-                        Toast.LENGTH_SHORT).show();;
+                        Toast.LENGTH_SHORT).show();
             }
-
             finish();
         }
+    }
+
+    public void callSupplier() {
+        String phoneNumber = mSupplierPhoneNumberEditText.getText().toString().trim();
+        Intent intent = new Intent(Intent.ACTION_DIAL,
+                Uri.parse("tel: " + phoneNumber));
+        startActivity(intent);
     }
 }

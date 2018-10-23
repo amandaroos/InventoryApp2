@@ -13,6 +13,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.android.inventoryapp2.data.InventoryContract.InventoryEntry;
 
@@ -59,6 +60,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 startActivity(intent);
             }
         });
+
+        //set an empty footer view at the end of the list to avoid the fab covering information
+        TextView empty = new TextView(this);
+        empty.setHeight(200);
+        //The footer view cannot be selected
+        productListView.addFooterView(empty, 0, false);
 
         //Initialize the loader
         getLoaderManager().initLoader(PRODUCT_LOADER, null, this);
