@@ -92,12 +92,8 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         mSupplierNameEditText.setOnTouchListener(mTouchListener);
         mSupplierPhoneNumberEditText.setOnTouchListener(mTouchListener);
 
-        //Listen for changes to price text so the formatting can be updated to match the changes
-        mProductPriceEditText.addTextChangedListener(priceWatcher);
-
-        //Set default values
+        //Set default value
         mProductPriceEditText.setText(R.string.zeroCurrency);
-        mProductQuantityEditText.setText("0");
 
         //Set on click listeners
         mIncreaseInventoryButton.setOnClickListener(new View.OnClickListener() {
@@ -233,6 +229,24 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         }
     }
 
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        //Listen for changes to price text so the formatting can be updated to match the changes
+        mProductPriceEditText.addTextChangedListener(priceWatcher);
+        mProductPriceEditText.setSelection(mProductPriceEditText.getText().length());
+        //Listen quantity text changes so the user can be warned when the quantity is too large
+        mProductQuantityEditText.addTextChangedListener(quantityWatcher);
+        super.onPostCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onDestroy() {
+        //Prevent the TextWatchers from being triggered when no longer needed
+        mProductPriceEditText.removeTextChangedListener(priceWatcher);
+        mProductQuantityEditText.removeTextChangedListener(quantityWatcher);
+        super.onDestroy();
+    }
+
     private TextWatcher priceWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -251,13 +265,41 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                 String totalStr = mProductPriceEditText.getText().toString();
                 totalStr = totalStr.replaceAll("[$.,]", "");
                 totalStr = getResources().getString(R.string.currency_symbol)
-                        + String.format(Locale.getDefault(), "%.2f", Double.parseDouble(totalStr) / 100);
+                        + String.format(Locale.getDefault(), "%.2f", Integer.parseInt(totalStr) / 100.00);
                 mProductPriceEditText.setText(totalStr);
                 mProductPriceEditText.setSelection(mProductPriceEditText.getText().length());
-            } catch (Exception e) {
-                //TODO Toast.makeText(getBaseContext(), R.string.large_number_error_toast, Toast.LENGTH_LONG).show();
-
+            } catch (NumberFormatException e) {
+                Toast.makeText(getBaseContext(), R.string.large_number_error_toast, Toast.LENGTH_LONG).show();
                 mProductPriceEditText.setText(R.string.zeroCurrency);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+        }
+    };
+
+    private TextWatcher quantityWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            if (mIgnoreNextTextChange) {
+                mIgnoreNextTextChange = false;
+                return;
+            } else {
+                mIgnoreNextTextChange = true;
+            }
+
+            try {
+                String totalStr = mProductQuantityEditText.getText().toString();
+                totalStr = String.valueOf(Integer.parseInt(totalStr));
+                mProductQuantityEditText.setSelection(mProductQuantityEditText.getText().length());
+            } catch (NumberFormatException e) {
+                Toast.makeText(getBaseContext(), R.string.large_number_error_toast, Toast.LENGTH_LONG).show();
+                mProductQuantityEditText.setText(R.string.detail_activity_default_quantity);
             }
         }
 
@@ -406,6 +448,11 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         //Clean up the price String
         String productPriceString = mProductPriceEditText.getText().toString().trim()
                 .replaceAll("[$,.]", "");
+
+        //Set default Quantity
+        if (productQuantityString.isEmpty()){
+            productQuantityString = String.valueOf(R.string.detail_activity_default_quantity);
+        }
 
         ContentValues values = new ContentValues();
         values.put(InventoryEntry.COLUMN_PRODUCT_NAME, productNameString);

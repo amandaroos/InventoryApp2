@@ -11,6 +11,9 @@
     <string name="detail_activity_label_product_details">Product Details:</string>
     <string name="detail_activity_label_supplier_details">Supplier Details:</string>
 
+    <!--Detail Activity quantity default value-->
+    <string name="detail_activity_default_quantity">0</string>
+
     <!--Detail Activity EditText hints-->
     <string name="detail_activity_hint_product_name">Product Name</string>
     <string name="detail_activity_hint_product_price">$0.00</string>
