@@ -3,7 +3,7 @@
 
     <!--Empty view text-->
     <string name="empty_view_header_text">No inventory available</string>
-    <string name="empty_view_text">Click the add button to create a product. \nProduct name is required.</string>
+    <string name="empty_view_text">Click the add button to create a product. \nProduct name, price, quatity, supplier name and supplier phone number are required.</string>
 
     <!--Detail Activity labels-->
     <string name="detail_activity_label_add_product">Add Product</string>
@@ -17,7 +17,7 @@
     <!--Detail Activity EditText hints-->
     <string name="detail_activity_hint_product_name">Product Name</string>
     <string name="detail_activity_hint_product_price">$0.00</string>
-    <string name="detail_activity_hint_product_quantity">Quantity</string>
+    <string name="detail_activity_hint_product_quantity">0</string>
     <string name="detail_activity_hint_supplier_name">Supplier Name</string>
     <string name="detail_activity_hint_supplier_phone_number">Supplier Phone Number</string>
 
@@ -53,6 +53,7 @@
     <string name="detail_activity_update_product_failed">Error with updating product</string>
     <string name="detail_activity_delete_product_successful">Product deleted</string>
     <string name="detail_activity_delete_product_failed">Error with deleting product</string>
+    <string name="detail_activity_empty_field_warning">Please fill in all fields</string>
     <string name="detail_activity_product_name_required">Product name required</string>
     <string name="large_number_error_toast">Error: number is too large</string>
 

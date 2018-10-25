@@ -137,12 +137,11 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                     //save the new product information entered by the user
                     saveProduct();
                     finish();
-                } else if (isValidData() == -1){
-                        //Exit the activity because the user did not enter any data
-                        finish();
                 }
                 //When isValidData() returns 0, do nothing. isValidData() displays a toast prompting
-                //the user to enter a product name
+                //the user to enter product name
+                //When isValidData() returns -1, do nothing. The functions displays a toast prompting
+                //the user to enter produt details
                 return true;
             case R.id.action_delete:
                 showDeleteConfirmationDialog();
@@ -421,13 +420,19 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         if (mCurrentProductURi == null &&
                 TextUtils.isEmpty(productNameString) &&
                 productPriceString.equals("000") &&
+                productQuantityString.isEmpty() &&
+                TextUtils.isEmpty(supplierNameString) &&
+                TextUtils.isEmpty(supplierPhoneNumberString)) {
+
+            Toast.makeText(getBaseContext(), R.string.detail_activity_empty_field_warning,
+                    Toast.LENGTH_SHORT).show();
+
+            return -1;
+        } else if (productPriceString.equals("000") &&
                 productQuantityString.equals("0") &&
                 TextUtils.isEmpty(supplierNameString) &&
                 TextUtils.isEmpty(supplierPhoneNumberString)) {
-            //Since no fields were modified, we can return early without creating a new product.
-            return -1;
-        } else if (productNameString.isEmpty()) {
-            //Product name is required
+            //Product details are required
             Toast.makeText(getBaseContext(), R.string.detail_activity_product_name_required,
                     Toast.LENGTH_SHORT).show();
             return 0;
