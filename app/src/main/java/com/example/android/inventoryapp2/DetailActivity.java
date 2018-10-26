@@ -361,7 +361,14 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
     public void changeProductQuantity(boolean increase) {
 
-        int productQuantityInteger = Integer.parseInt(mProductQuantityEditText.getText().toString());
+        String quantityString = mProductQuantityEditText.getText().toString();
+        int productQuantityInteger;
+
+        if (quantityString.isEmpty()){
+            productQuantityInteger = 0;
+        } else {
+         productQuantityInteger =Integer.parseInt(quantityString);
+        }
         //if increase is true, increase quantity
         //otherwise, if it is greater than 0, decrease the quantity
         if (increase) {
@@ -418,10 +425,10 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         //Check if this is supposed to be a new product and check if all the fields are blank
         //or if the fields ar equal to their default values
         if (mCurrentProductURi == null &&
-                TextUtils.isEmpty(productNameString) &&
-                productPriceString.equals("000") &&
-                productQuantityString.isEmpty() &&
-                TextUtils.isEmpty(supplierNameString) &&
+                TextUtils.isEmpty(productNameString) ||
+                productPriceString.equals("000") ||
+                productQuantityString.isEmpty() ||
+                TextUtils.isEmpty(supplierNameString) ||
                 TextUtils.isEmpty(supplierPhoneNumberString)) {
 
             Toast.makeText(getBaseContext(), R.string.detail_activity_empty_field_warning,
