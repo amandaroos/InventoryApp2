@@ -425,11 +425,11 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         //Check if this is supposed to be a new product and check if all the fields are blank
         //or if the fields ar equal to their default values
         if (mCurrentProductURi == null &&
-                TextUtils.isEmpty(productNameString) ||
+                (TextUtils.isEmpty(productNameString) ||
                 productPriceString.equals("000") ||
                 productQuantityString.isEmpty() ||
                 TextUtils.isEmpty(supplierNameString) ||
-                TextUtils.isEmpty(supplierPhoneNumberString)) {
+                TextUtils.isEmpty(supplierPhoneNumberString))) {
 
             Toast.makeText(getBaseContext(), R.string.detail_activity_empty_field_warning,
                     Toast.LENGTH_SHORT).show();
